@@ -1,0 +1,84 @@
+
+<div class="container">
+
+  <h2 class="mb-4">
+    {{ isEditMode ? 'Edit Song' : 'Add New Song' }}
+  </h2>
+
+  <form #songForm="ngForm" (ngSubmit)="saveSong()">
+
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        [(ngModel)]="song.title"
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Artist</label>
+      <input
+        type="text"
+        class="form-control"
+        name="artist"
+        [(ngModel)]="song.artist"
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Genre</label>
+      <select
+        class="form-select"
+        name="genre"
+        [(ngModel)]="song.genre"
+        required>
+        <option value="" disabled>Select a genre</option>
+        <option value="Pop">Pop</option>
+        <option value="Rock">Rock</option>
+        <option value="Jazz">Jazz</option>
+        <option value="Hip-Hop">Hip-Hop</option>
+        <option value="Classical">Classical</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Duration (seconds)</label>
+      <input
+        type="number"
+        class="form-control"
+        name="duration"
+        [(ngModel)]="song.duration"
+        min="1"
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Audio URL</label>
+      <input
+        type="text"
+        class="form-control"
+        name="audioUrl"
+        [(ngModel)]="song.audioUrl">
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary me-2"
+      [disabled]="songForm.invalid">
+      {{ isEditMode ? 'Update' : 'Save' }}
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-secondary"
+      routerLink="/songs">
+      Cancel
+    </button>
+
+  </form>
+
+</div>

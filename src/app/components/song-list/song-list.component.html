@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Music Library</h2>
+
+  <a routerLink="/songs/new" class="btn btn-primary">
+    + Add Song
+  </a>
+</div>
+
+<div *ngIf="loading" class="text-center">
+  Loading songs...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div class="row" *ngIf="!loading">
+
+  <div class="col-md-4 mb-4" *ngFor="let song of songs">
+
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+
+        <h5 class="card-title">{{ song.title }}</h5>
+
+        <p class="card-text">
+          <strong>Artist:</strong> {{ song.artist }}
+        </p>
+
+        <p class="card-text">
+          <strong>Duration:</strong> {{ song.duration }} seconds
+        </p>
+
+        <div class="d-flex gap-2">
+
+          <a
+            [routerLink]="['/songs/edit', song.id]"
+            class="btn btn-warning btn-sm">
+            Edit
+          </a>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteSong(song.id)">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="!loading && songs.length === 0" class="alert alert-info">
+  No songs found. Add your first song!
+</div>

@@ -1,7 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { SongListComponent } from './components/song-list/song-list.component';
+import { SongFormComponent } from './components/song-form/song-form.component';
+import { PlaylistListComponent } from './components/playlist-list/playlist-list.component';
+import { PlaylistFormComponent } from './components/playlist-form/playlist-form.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'songs', pathMatch: 'full' },
+  { path: 'songs', component: SongListComponent },
+  { path: 'songs/new', component: SongFormComponent },
+  { path: 'songs/edit/:id', component: SongFormComponent },
+  { path: 'playlists', component: PlaylistListComponent },
+  { path: 'playlists/new', component: PlaylistFormComponent },
+  { path: 'playlists/edit/:id', component: PlaylistFormComponent },
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

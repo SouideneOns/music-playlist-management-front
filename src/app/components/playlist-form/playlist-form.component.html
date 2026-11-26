@@ -1,0 +1,75 @@
+
+<div class="container">
+
+  <h2 class="mb-4">
+    {{ isEditMode ? 'Edit Playlist' : 'Create New Playlist' }}
+  </h2>
+
+  <form #playlistForm="ngForm" (ngSubmit)="savePlaylist()">
+
+    <div class="mb-3">
+      <label class="form-label">Playlist Name</label>
+
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        [(ngModel)]="playlist.name"
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+
+      <textarea
+        class="form-control"
+        name="description"
+        rows="3"
+        [(ngModel)]="playlist.description">
+      </textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Select Songs</label>
+
+      <div *ngIf="availableSongs.length === 0" class="alert alert-info">
+        No songs available. Please add songs first.
+      </div>
+
+      <div
+        class="form-check"
+        *ngFor="let song of availableSongs">
+
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [id]="'song-' + song.id"
+          [checked]="selectedSongIds.includes(song.id!)"
+          (change)="onSongSelectionChange($event, song.id)">
+
+        <label
+          class="form-check-label"
+          [for]="'song-' + song.id">
+          {{ song.title }} - {{ song.artist }}
+        </label>
+
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary me-2"
+      [disabled]="playlistForm.invalid">
+      {{ isEditMode ? 'Update Playlist' : 'Create Playlist' }}
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-secondary"
+      routerLink="/playlists">
+      Cancel
+    </button>
+
+  </form>
+
+</div>

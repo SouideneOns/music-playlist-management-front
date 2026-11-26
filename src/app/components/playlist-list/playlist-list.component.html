@@ -1,0 +1,60 @@
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>My Playlists</h2>
+
+  <a routerLink="/playlists/new" class="btn btn-primary">
+    + Create Playlist
+  </a>
+</div>
+
+<div *ngIf="loading" class="text-center">
+  Loading playlists...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div class="row" *ngIf="!loading">
+
+  <div class="col-md-4 mb-4" *ngFor="let playlist of playlists">
+
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+
+        <h5 class="card-title">{{ playlist.name }}</h5>
+
+        <p class="card-text">
+          {{ playlist.description }}
+        </p>
+
+        <p class="text-muted">
+          {{ playlist.songs?.length || 0 }} songs
+        </p>
+
+        <div class="d-flex gap-2">
+
+          <a
+            [routerLink]="['/playlists/edit', playlist.id]"
+            class="btn btn-warning btn-sm">
+            Edit
+          </a>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deletePlaylist(playlist.id)">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="!loading && playlists.length === 0" class="alert alert-info">
+  No playlists found. Create your first playlist!
+</div>
